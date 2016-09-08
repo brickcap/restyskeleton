@@ -1,9 +1,10 @@
 var fs  = require("fs");
 var program = require("commander");
+var shell = require("shelljs");
 
 var make_skeleton = function(){
     program.version('0.0.1')
-	.option('-p, --peppers', 'Add peppers')
+	.option('-p, --project', 'Creates an openresty skeleton in the directory name supplied as argument')
 	.option('-P, --pineapple', 'Add pineapple')
 	.option('-b, --bbq-sauce', 'Add bbq sauce')
 	.option('-c, --cheese [type]', 'Add the specified type of cheese [marble]', 'marble')
