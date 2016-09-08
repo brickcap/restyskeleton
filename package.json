@@ -2,9 +2,10 @@
   "name": "orskeleton",
   "version": "1.0.0",
   "description": "",
-  "main": "make_skeleton.js",
+  "main": "restyskeleton.js",
   "dependencies": {
-    "commander": "^2.9.0"
+    "commander": "^2.9.0",
+    "shelljs": "^0.7.4"
   },
   "devDependencies": {},
   "scripts": {
