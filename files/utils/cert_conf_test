@@ -1,5 +1,5 @@
-ssl_certificate      ./utils/test_cert.pem;
-ssl_certificate_key  ./utils/test_key.pem;
+ssl_certificate      ./utils/test_certs/test_cert.pem;
+ssl_certificate_key  ./utils/test_certs/test_key.pem;
 
 ssl_session_timeout  5m;
 
