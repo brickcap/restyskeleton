@@ -7,19 +7,24 @@ var shell = require("shelljs");
 var make_skeleton = function(){
     
     program.version('1.0.0');        
-    program.option('-d, --directory <dirname>', 'Creates an openresty skeleton in the directory name supplied as argument')
+    program.option('-d, --directory <dirname>','Creates an openresty skeleton in the directory name supplied as argument')
 	.action(function(dirname){
-	    if (!fs.existsSync(dirname)){
-		try{
-		    fs.mkdirSync(dirname);
-		    console.log("Openresty app is ready in:"+dirname+"" );
-		}
-		catch(ex){
-		    console.log("Can't create a project in " +dirname);
-		}
-	    }
+	    
 	});
     program.parse(process.argv);
+    if (!fs.existsSync(program.directory)){
+	try{
+	    fs.mkdirSync(program.directory);
+	    shell.cp("-R","files/*",program.directory);
+	    console.log("Your Openresty app is ready in"+program.directory+"" );
+	}
+	catch(ex){
+	    console.log(ex);
+	    console.log("Can't create a project in " +program.directory);
+	}
+    }else{
+	console.log("The directory "+ program.directory+" already exists. Can't create an openresty skeleton in an existing directory" );
+    }
     
 
 };
