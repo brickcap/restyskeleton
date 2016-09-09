@@ -6,13 +6,14 @@ var shell = require("shelljs");
 
 var make_skeleton = function(){
     
-    program.version('0.0.1')
+    program.version('0.0.1')        
 	.option('-p, --project', 'Creates an openresty skeleton in the directory name supplied as argument')
-	.parse(process.argv);
+        .action(function(cmd,options){
+	    console.log(cmd);
+	    console.log(options);
+	});
+	program.parse(process.argv);
     
-       if (program.project) console.log('  - peppers');
-    if (program.pineapple) console.log('  - pineapple');
-    if (program.bbqSauce) console.log('  - bbq');
-    console.log('  - %s cheese', program.cheese);
+
 };
 make_skeleton();
