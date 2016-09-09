@@ -20,26 +20,22 @@ var make_skeleton = function(){
 	    fs.mkdirSync(dir);
 	    shell.cp("-R","files/*",dir);
 	    shell.cd(dir);
-	    console.log(process.cwd());
 	    var which = shell.which("nginx");
 	    if(which.stdout.indexOf("openresty")===-1){
 		console.log("restyskeleton could not find openresty in your path. Are you sure you have installed it?");
 		console.log("Please cd into '"+dir
 			    +"' and try running your application manually");
 	    }
-	    cp.exec("nginx  -p ./  -c ./dev.ngx.conf",function(error,stdout,stderr){
-		console.log(stdout);
-		console.log(stderr);
-		console.log(error);
-		if(stderr){
-		    console.log(stderr);
-		    console.log("Couldn't start openresty. Please cd into '"+dir+
-				"' and try running your application manually");
-		}
-		else{
-		    console.log("Your openresty application is running on http://localhost:3125");
-		}
-	    });
+	    var out = shell.exec("nginx  -p ./  -c ./dev.ngx.conf");
+	    if(out.stderr){
+		console.log(out.stderr);
+		console.log("Couldn't start openresty. Please cd into '"+dir+
+			    "' and try running your application manually");
+		
+	    }
+	    else{
+		console.log("Your openresty application is running on http://localhost:3125");
+	    }
 	    
 	}
 	catch(ex){
