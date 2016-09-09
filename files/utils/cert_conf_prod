@@ -1,4 +1,6 @@
+## edit with your own certificate path
 ssl_certificate /etc/letsencrypt/live/wrinq.com/fullchain.pem;
+## edit with your own key path
 ssl_certificate_key /etc/letsencrypt/live/wrinq.com/privkey.pem;
 ssl_session_timeout  5m;        
 ssl_protocols  SSLv2 SSLv3 TLSv1 TLSv1.2 TLSv1.1;
