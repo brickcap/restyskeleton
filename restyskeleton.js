@@ -29,12 +29,13 @@ var make_skeleton = function(){
 	    var out = shell.exec("nginx  -p ./  -c ./dev.ngx.conf");
 	    if(out.stderr){
 		console.log(out.stderr);
-		console.log("Couldn't start openresty. Please cd into '"+dir+
+		console.log("Couldn't start openresty.Are your ports 3125 and 4125 in use? Please cd into '"+dir+
 			    "' and try running your application manually");
 		
 	    }
 	    else{
-		console.log("Your openresty application is running on http://localhost:3125");
+		console.log("Your openresty application is running on http://localhost:3125/");
+		console.log("The https version is being served on https://localhost:4125/");
 	    }
 	    
 	}
