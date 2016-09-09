@@ -9,7 +9,9 @@ var make_skeleton = function(){
     program.version('1.0.0')        
 	.option('-p, --project', 'Creates an openresty skeleton in the directory name supplied as argument');
 	program.parse(process.argv);
-    if(program.project) console.log("My lord has commanded me to create a project");
+    if(program.project){
+	
+    }
 
 };
 make_skeleton();
