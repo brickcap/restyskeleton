@@ -1,16 +1,20 @@
 {
-  "name": "orskeleton",
-  "version": "1.0.0",
-  "description": "",
-  "main": "restyskeleton.js",
-  "dependencies": {
-    "commander": "^2.9.0",
-    "shelljs": "^0.7.4"
-  },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "Akshat Jiwan Sharma",
-  "license": "MIT"
+    "name": "restyskeleton",
+    "version": "1.0.0",
+    "description": "",
+    "dependencies": {
+	"commander": "^2.9.0",
+	"shelljs": "^0.7.4"
+    },
+    "preferGlobal": true,
+
+    "devDependencies": {},
+    "scripts": {
+	"test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "bin":{
+	"restyskeleton":"restyskeleton.js"
+    },
+    "author": "Akshat Jiwan Sharma",
+    "license": "MIT"
 }
