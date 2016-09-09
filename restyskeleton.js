@@ -16,7 +16,11 @@ var make_skeleton = function(){
 	try{
 	    fs.mkdirSync(program.directory);
 	    shell.cp("-R","files/*",program.directory);
-	    console.log("Your Openresty app is ready in"+program.directory+"" );
+	    console.log("Your Openresty skeleton is ready.");
+	    shell.cd(program.directory);
+	    var out = shell.exec("nginx  -p ./  -c ./dev.ngx.conf");
+	    console.log(out.stdout);
+	    console.log(out.stderr);
 	}
 	catch(ex){
 	    console.log(ex);
