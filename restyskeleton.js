@@ -3,6 +3,7 @@
 var fs  = require("fs");
 var program = require("commander");
 var shell = require("shelljs");
+var cp = require("child_process");
 
 var make_skeleton = function(){
     
@@ -12,22 +13,34 @@ var make_skeleton = function(){
 	    
 	});
     program.parse(process.argv);
-    if (!fs.existsSync(program.directory)){
+    var dir = program.directory;
+    if (!fs.existsSync(dir)){
 	try{
-	    fs.mkdirSync(program.directory);
-	    shell.cp("-R","files/*",program.directory);
-	    console.log("Your Openresty skeleton is ready.");
-	    shell.cd(program.directory);
-	    var out = shell.exec("nginx  -p ./  -c ./dev.ngx.conf");
-	    console.log(out.stdout);
-	    console.log(out.stderr);
+	    fs.mkdirSync(dir);
+	    shell.cp("-R","files/*",dir);
+	    console.log("Your openresty skeleton is ready.");
+	    shell.cd(dir);
+	    var which = shell.which("nginx");
+	    if(which.stdout.indexOf("openresty")===-1){
+		console.log("restyskeleton could not find openresty in your path. Are you sure you have installed it?");
+		console.log("Please cd into'"+dir+"'and try running your application manually");
+	    }
+	    cp.exec("nginx  -p ./  -c ./dev.ngx.conf",function(error,stdout,stderr){
+		if(stderr){
+		    console.log(stderr);
+		}
+		else{
+		    console.log("Your openresty application is running on http://localhost:3125");
+		}
+	    });
+	    
 	}
 	catch(ex){
 	    console.log(ex);
-	    console.log("Can't create a project in " +program.directory);
+	    console.log("Can't create a project in " +dir);
 	}
     }else{
-	console.log("The directory "+ program.directory+" already exists. Can't create an openresty skeleton in an existing directory" );
+	console.log("The directory "+ dir+" already exists. Can't create an openresty skeleton in an existing directory" );
     }
     
 
