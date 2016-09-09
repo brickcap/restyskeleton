@@ -6,15 +6,22 @@ var shell = require("shelljs");
 
 var make_skeleton = function(){
     
-    program.version('1.0.0')        
-	.option('-p, --project', 'Creates an openresty skeleton in the directory name supplied as argument')
-	.arguments("<dirname>").action(function(dirname){
-	    console.log("create a skeleton in:"+dirname);
+    program.version('1.0.0');        
+    program.option('-d, --directory <dirname>', 'Creates an openresty skeleton in the directory name supplied as argument')
+	.action(function(dirname){
+	    
+	    if (!fs.existsSync(dirname)){
+		try{
+		    fs.mkdirSync(dirname);
+		    console.log("Openresty app is ready in:"+dirname+"" );
+		}
+		catch(excep){
+		    console.log("Can't create a project in " +dirname);
+		}
+	    }
 	});
-	program.parse(process.argv);
-    if(program.project){
-	
-    }
+    program.parse(process.argv);
+    
 
 };
 make_skeleton();
