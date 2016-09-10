@@ -53,19 +53,7 @@ var make_skeleton = function(){
 		console.log(data);
 	    });
 	    
-	    // var out = shell.exec("nginx  -p ./  -c ./dev.ngx.conf");
-	    // console.log(out);
-	    // if(out.stderr){
-	    // 	console.log(out.stderr);
-	    // 	console.log("Couldn't start openresty.Are your ports 3125 and 4125 in use? Please cd into '"+dir+
-	    // 		    "' and try running your application manually");
-	    
-	    // }
-	    // else{
-	    // 	console.log("Your openresty application is running on http://localhost:3125/");
-	    // 	console.log("The https version is being served on https://localhost:4125/");
-	    // }
-	    
+	    	    
 	}
 	catch(ex){
 	    console.log(ex);
@@ -75,7 +63,7 @@ var make_skeleton = function(){
 	console.log("The directory "+ dir+
 		    " already exists. Can't create an openresty skeleton in an existing directory" );
     }
-    //process.exit();    
+    
 
 };
 make_skeleton();
