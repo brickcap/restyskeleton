@@ -6,6 +6,7 @@ var shell = require("shelljs");
 var mustache = require("mustache");
 var cp = require("child_process");
 var run_path = process.cwd();
+var lib_path = __dirname;
 
 var make_skeleton = function(){
 
@@ -35,9 +36,9 @@ var make_skeleton = function(){
 	try{
 	    fs.mkdirSync(dir);
 	    // shell.cd()
-	    var file = fs.readFileSync("files/dev.ngx.conf",'utf-8');
+	    var file = fs.readFileSync(lib_path+"/files/dev.ngx.conf",'utf-8');
 	    var rendered = mustache.render(file,{port_ssl:port_ssl,port:port});
-	    shell.cd(__dirname);
+	    shell.cd(lib_path);
 	    shell.cp("-R","files/*",run_path+"/"+dir);
 	    shell.cd(run_path+"/"+dir);
 	    fs.writeFileSync(run_path+"/"+dir+"/dev.ngx.conf",rendered);
