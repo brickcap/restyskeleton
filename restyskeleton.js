@@ -49,22 +49,17 @@ var make_skeleton = function(){
 	    }
 	    spawn.on("error",function(data){
 		console.log(data);
-		console.log("[ERR] Couldn't start nginx");
 		process.exit(1);
 	    });
 	    spawn.on("exit",function(data){
-		console.log(data);
-		console.log("[ERR] Couldn't start nginx");
 		process.exit(1);
 	    });
 	    
 	    spawn.on("close",function(data){
-		console.log(data);
 		process.exit(1);
 	    });
 	    
 	    spawn.on("disconnect",function(data){
-		console.log(data);
 		process.exit(1);
 	    });
 
