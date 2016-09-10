@@ -34,12 +34,7 @@ var make_skeleton = function(){
 	    shell.cd(__dirname);
 	    shell.cp("-R","files/*",run_path+"/"+dir);
 	    shell.cd(run_path+"/"+dir);
-	    var which = shell.which("nginx");
-	    if(which.stdout.indexOf("openresty")===-1){
-		console.log("restyskeleton could not find openresty in your path. Are you sure you have installed it?");
-		console.log("Please cd into '"+dir
-			    +"' and try running your application manually");
-	    }
+	   
 	    var spawn =  cp.spawn("/usr/local/openresty/nginx/sbin/nginx",
 				  ['-p./', '-cdev.ngx.conf'],
 				  {stdio:"inherit"});
@@ -75,8 +70,8 @@ var make_skeleton = function(){
 	    console.log("Can't create a project in " +dir);
 	}
     }else{
-	console.log("The directory "+ dir+
-		    " already exists. Can't create an openresty skeleton in an existing directory" );
+	console.log("The directory <"+
+		    dir+"> already exists. Can't create an openresty skeleton in an existing directory" );
     }
     
 
