@@ -26,7 +26,7 @@ var make_skeleton = function(){
 
     if(program.port)	port = program.port;
     if(program.portssl)	port_ssl = program.portssl;
-    if(program.ngxp)ngx_path = program.ngxp;
+    if(program.ngxp) ngx_path = program.ngxp;
 
     if (!fs.existsSync(dir)){
 	try{
@@ -38,7 +38,7 @@ var make_skeleton = function(){
 	    shell.cp("-R","files/*",run_path+"/"+dir);
 	    shell.cd(run_path+"/"+dir);
 	    fs.writeFileSync(run_path+"/"+dir+"/dev.ngx.conf",rendered);
-	    var spawn =  cp.spawn(or_path,['-p./', '-cdev.ngx.conf'],
+	    var spawn =  cp.spawn(ngx_path,['-p./', '-cdev.ngx.conf'],
 				  {stdio:"inherit"});
 	    if(spawn.pid){
 		console.log("Your app is running on http://localhost:"+port);
