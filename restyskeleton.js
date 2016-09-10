@@ -40,11 +40,10 @@ var make_skeleton = function(){
 	    // shell.cd()
 	    var file = fs.readFileSync("files/dev.ngx.conf",'utf-8');
 	    var rendered = mustache.render(file,{port_ssl:port_ssl,port:port});
-	    console.log(rendered);
 	    shell.cd(__dirname);
 	    shell.cp("-R","files/*",run_path+"/"+dir);
 	    shell.cd(run_path+"/"+dir);
-	   
+	    fs.writeFileSync(run_path+"/"+dir+"/dev.ngx.conf",rendered);
 	    var spawn =  cp.spawn("/user/local/openresty/nginx/sbin/nginx",
 				  ['-p./', '-cdev.ngx.conf'],
 				  {stdio:"inherit"});
