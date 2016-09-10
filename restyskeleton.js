@@ -23,7 +23,7 @@ var make_skeleton = function(){
     program.parse(process.argv);
 
     var dir = program.directory;
-    if(!program.path){
+    if(!program.directory){
 	console.log("[ERR] A directory must be specified");
 	process.exit(1);
     }
