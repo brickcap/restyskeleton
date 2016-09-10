@@ -53,7 +53,8 @@ var make_skeleton = function(){
 		process.exit(1);
 	    });
 	    spawn.on("exit",function(data){
-		console.log("[ERR] nginx stopped");
+		console.log(data);
+		console.log("[ERR] Couldn't start nginx");
 		process.exit(1);
 	    });
 	    
