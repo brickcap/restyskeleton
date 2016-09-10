@@ -30,7 +30,7 @@ var make_skeleton = function(){
 	    }
 	    var spawn =  cp.spawn("/usr/local/openresty/nginx/sbin/nginx",
 				  ['-p./', '-cdev.ngx.conf'],
-				  {detached:true,stdio:"inherit"});
+				  {stdio:"inherit"});
 	    if(spawn.pid){
 		console.log("Your app is running on http://localhost:3125");
 	    }
@@ -40,7 +40,7 @@ var make_skeleton = function(){
 		console.log("Couldn't start nginx");
 		process.exit(1);
 	    });
-	       spawn.on("exit",function(data){
+	    spawn.on("exit",function(data){
 		process.exit(1);
 	    });
 	    
