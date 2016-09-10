@@ -6,17 +6,24 @@ var shell = require("shelljs");
 var mustache = require("mustache");
 var cp = require("child_process");
 var run_path = process.cwd();
+
 var make_skeleton = function(){
+
     var port = "3125";
     var port_ssl = "4125";
     var or_path = "/usr/local/openresty/nginx/sbin/nginx";
+    
     program.version('1.0.0');        
+
     program.option('-d, --directory <dirname>','directory in which openresty skeleton should be created')
-	.option('-p, --port <port number>',"port on which nginx server should start [default 3125] ")
-	.option('-ps,--portssl <ssl port number>',"port on which the ssl server should start [default 4125]")
-    .option('-n,--ngxp <ngxpath>',"path of openresty's ngx distribution [default /usr/local/openresty/nginx/sbin/nginx]");
+    .option('-p, --port <port number>',"port on which nginx server should run [default 3125] ")
+    .option('-s,--portssl <ssl port number>',"port on which the nginx secure server should run [default 4125]")
+    .option('-n,--ngxp <ngxpath>',"openresty's nginx distribution path [default /usr/local/openresty/nginx/sbin/nginx]");
+
     program.parse(process.argv);
+
     var dir = program.directory;
+    console.log(program.port);
     if(program.port){
 	port = program.port;
 	
@@ -31,11 +38,14 @@ var make_skeleton = function(){
 	try{
 	    fs.mkdirSync(dir);
 	    // shell.cd()
+	    var file = fs.readFileSync("files/dev.ngx.conf",'utf-8');
+	    var rendered = mustache.render(file,{port_ssl:port_ssl,port:port});
+	    console.log(rendered);
 	    shell.cd(__dirname);
 	    shell.cp("-R","files/*",run_path+"/"+dir);
 	    shell.cd(run_path+"/"+dir);
 	   
-	    var spawn =  cp.spawn("/usr/local/openresty/nginx/sbin/nginx",
+	    var spawn =  cp.spawn("/user/local/openresty/nginx/sbin/nginx",
 				  ['-p./', '-cdev.ngx.conf'],
 				  {stdio:"inherit"});
 	    if(spawn.pid){
