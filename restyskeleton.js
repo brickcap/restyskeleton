@@ -23,7 +23,6 @@ var make_skeleton = function(){
     program.parse(process.argv);
 
     var dir = program.directory;
-    console.log(program.port);
     if(program.port){
 	port = program.port;
 	
@@ -44,14 +43,12 @@ var make_skeleton = function(){
 	    shell.cp("-R","files/*",run_path+"/"+dir);
 	    shell.cd(run_path+"/"+dir);
 	    fs.writeFileSync(run_path+"/"+dir+"/dev.ngx.conf",rendered);
-	    var spawn =  cp.spawn("/user/local/openresty/nginx/sbin/nginx",
-				  ['-p./', '-cdev.ngx.conf'],
+	    var spawn =  cp.spawn(or_path,['-p./', '-cdev.ngx.conf'],
 				  {stdio:"inherit"});
 	    if(spawn.pid){
-		console.log("Your app is running on http://localhost:3125");
+		console.log("Your app is running on http://localhost:"+port);
 	    }
 	    spawn.on("error",function(data){
-		console.log(process.cwd());
 		console.log(data);
 		console.log("Couldn't start nginx");
 		process.exit(1);
