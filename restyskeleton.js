@@ -17,6 +17,16 @@ var make_skeleton = function(){
     .option('-n,--ngxp <ngxpath>',"path of openresty's ngx distribution [default /usr/local/openresty/nginx/sbin/nginx]");
     program.parse(process.argv);
     var dir = program.directory;
+    if(program.port){
+	port = program.port;
+	
+    }
+    if(program.portssl){
+	port_ssl = program.portssl;
+    }
+    if(program.ngxp){
+	or_path = program.ngxp;
+    }
     if (!fs.existsSync(dir)){
 	try{
 	    fs.mkdirSync(dir);
