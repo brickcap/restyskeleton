@@ -3,16 +3,18 @@
 var fs  = require("fs");
 var program = require("commander");
 var shell = require("shelljs");
+var mustache = require("mustache");
 var cp = require("child_process");
 var run_path = process.cwd();
 var make_skeleton = function(){
-    
+    var port = "3125";
+    var port_ssl = "4125";
+    var or_path = "/usr/local/openresty/nginx/sbin/nginx";
     program.version('1.0.0');        
-    program.option('-d, --directory <dirname>',
-		   'Creates an openresty skeleton in the directory name supplied as argument')
-	.action(function(dirname){
-	    
-	});
+    program.option('-d, --directory <dirname>','directory in which openresty skeleton should be created')
+	.option('-p, --port <port number>',"port on which nginx server should start [default 3125] ")
+	.option('-ps,--portssl <ssl port number>',"port on which the ssl server should start [default 4125]")
+    .option('-n,--ngxp <ngxpath>',"path of openresty's ngx distribution [default /usr/local/openresty/nginx/sbin/nginx]");
     program.parse(process.argv);
     var dir = program.directory;
     if (!fs.existsSync(dir)){
