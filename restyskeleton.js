@@ -31,6 +31,9 @@ var make_skeleton = function(){
 	    var spawn =  cp.spawn("/usr/local/openresty/nginx/sbin/nginx",
 				  ['-p./', '-cdev.ngx.conf'],
 				  {detached:true,stdio:"inherit"});
+	    if(spawn.pid){
+		console.log("Your app is running on http://localhost:3125");
+	    }
 	    spawn.on("error",function(data){
 		console.log(process.cwd());
 		console.log(data);
