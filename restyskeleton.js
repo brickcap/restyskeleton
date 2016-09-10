@@ -15,16 +15,19 @@ var make_skeleton = function(){
     
     program.version('1.0.0');        
 
-    program.option('-d, --directory <dirname>','directory in which openresty skeleton should be created')
-    .option('-p, --port <port number>',"port on which nginx server should run [default 3125] ")
-    .option('-s,--portssl <ssl port number>',"port on which the nginx secure server should run [default 4125]")
-    .option('-n,--ngxp <ngxpath>',"openresty's nginx distribution path [default /usr/local/openresty/nginx/sbin/nginx]");
+    program.option('-d, --directory <dirname>','path of the directory  in which openresty skeleton should be created')
+    .option('-p, --port <port number>',"port on which nginx listens for http connections [default 3125] ")
+    .option('-s,--portssl <ssl port number>',"port on which the nginx listens for https connections [default 4125]")
+    .option('-n,--ngxp <ngxpath>',"path where nginx is installed [default /usr/local/openresty/nginx/sbin/nginx]");
 
     program.parse(process.argv);
 
     var dir = program.directory;
-
-    if(program.port)	port = program.port;
+    if(!program.path){
+	console.log("[ERR] A directory must be specified");
+	process.exit(1);
+    }
+    if(program.port) port = program.port;
     if(program.portssl)	port_ssl = program.portssl;
     if(program.ngxp) ngx_path = program.ngxp;
 
