@@ -59,10 +59,12 @@ var make_skeleton = function(){
 	    });
 	    
 	    spawn.on("close",function(data){
+		console.log(data);
 		process.exit(1);
 	    });
 	    
 	    spawn.on("disconnect",function(data){
+		console.log(data);
 		process.exit(1);
 	    });
 
