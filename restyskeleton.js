@@ -28,37 +28,31 @@ var make_skeleton = function(){
 		console.log("Please cd into '"+dir
 			    +"' and try running your application manually");
 	    }
-	    var spawn =  cp.spawn("/usr/local/openresty/nginx/sbin/nginx",['-p ./','-c ./dev.ngx.conf'],{detached:true});
+	    var spawn =  cp.spawn("/usr/local/openresty/nginx/sbin/nginx",
+				  ['-p./', '-cdev.ngx.conf'],
+				  {detached:true,stdio:"inherit"});
 	    spawn.on("error",function(data){
 		console.log(process.cwd());
 		console.log(data);
 		console.log("Couldn't start nginx");
-		//process.exit(1);
+		process.exit(1);
 	    });
-	    spawn.on("exit",function(data){
-		//process.exit(1);
+	       spawn.on("exit",function(data){
+		process.exit(1);
 	    });
 	    
 	    spawn.on("close",function(data){
-		//process.exit(1);
+		process.exit(1);
 	    });
 	    
 	    spawn.on("disconnect",function(data){
-		//process.exit(1);
+		process.exit(1);
 	    });
 
 	    spawn.on("message",function(data){
 		console.log(data);
 	    });
-	    spawn.stdout.on('data', function(data) {
-		console.log('stdout: ' + data);
-		//Here is where the output goes
-	    });
-	    spawn.stderr.on('data', function(data) {
-		console.log('stderr: ' + data);
-		//Here is where the error output goes
-	    });
-	    //	    console.log(spawn);
+	    
 	    // var out = shell.exec("nginx  -p ./  -c ./dev.ngx.conf");
 	    // console.log(out);
 	    // if(out.stderr){
