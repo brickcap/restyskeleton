@@ -11,7 +11,7 @@ var make_skeleton = function(){
 
     var port = "3125";
     var port_ssl = "4125";
-    var or_path = "/usr/local/openresty/nginx/sbin/nginx";
+    var ngx_path = "/usr/local/openresty/nginx/sbin/nginx";
     
     program.version('1.0.0');        
 
@@ -23,16 +23,11 @@ var make_skeleton = function(){
     program.parse(process.argv);
 
     var dir = program.directory;
-    if(program.port){
-	port = program.port;
-	
-    }
-    if(program.portssl){
-	port_ssl = program.portssl;
-    }
-    if(program.ngxp){
-	or_path = program.ngxp;
-    }
+
+    if(program.port)	port = program.port;
+    if(program.portssl)	port_ssl = program.portssl;
+    if(program.ngxp)ngx_path = program.ngxp;
+
     if (!fs.existsSync(dir)){
 	try{
 	    fs.mkdirSync(dir);
@@ -50,7 +45,7 @@ var make_skeleton = function(){
 	    }
 	    spawn.on("error",function(data){
 		console.log(data);
-		console.log("Couldn't start nginx");
+		console.log("[ERR] Couldn't start nginx");
 		process.exit(1);
 	    });
 	    spawn.on("exit",function(data){
@@ -73,11 +68,10 @@ var make_skeleton = function(){
 	}
 	catch(ex){
 	    console.log(ex);
-	    console.log("Can't create a project in " +dir);
+	    console.log("[ERR] Can't create a project in " +dir);
 	}
     }else{
-	console.log("The directory <"+
-		    dir+"> already exists. Can't create an openresty skeleton in an existing directory" );
+	console.log("[ERR] Can't create an openresty skeleton in an existing directory" );
     }
     
 
