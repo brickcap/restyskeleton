@@ -28,34 +28,44 @@ var make_skeleton = function(){
 		console.log("Please cd into '"+dir
 			    +"' and try running your application manually");
 	    }
-	   var spawn =  cp.spawn("/usr/local/openresty/nginx/sbin/nginx",[],{detached:true,stdio:"ignore"});
+	    var spawn =  cp.spawn("/usr/local/openresty/nginx/sbin/nginx",['-p ./','-c ./dev.ngx.conf'],{detached:true});
 	    spawn.on("error",function(data){
-		console.log("Could not spawn");
+		console.log(process.cwd());
+		console.log(data);
+		console.log("Couldn't start nginx");
+		//process.exit(1);
 	    });
 	    spawn.on("exit",function(data){
-		console.log("Exited");
+		//process.exit(1);
 	    });
 	    
 	    spawn.on("close",function(data){
-		console.log("closed");
+		//process.exit(1);
 	    });
 	    
 	    spawn.on("disconnect",function(data){
-		console.log("disconnected");
+		//process.exit(1);
 	    });
 
-	    
 	    spawn.on("message",function(data){
-		console.log("message");
+		console.log(data);
 	    });
-	    console.log(spawn);
+	    spawn.stdout.on('data', function(data) {
+		console.log('stdout: ' + data);
+		//Here is where the output goes
+	    });
+	    spawn.stderr.on('data', function(data) {
+		console.log('stderr: ' + data);
+		//Here is where the error output goes
+	    });
+	    //	    console.log(spawn);
 	    // var out = shell.exec("nginx  -p ./  -c ./dev.ngx.conf");
 	    // console.log(out);
 	    // if(out.stderr){
 	    // 	console.log(out.stderr);
 	    // 	console.log("Couldn't start openresty.Are your ports 3125 and 4125 in use? Please cd into '"+dir+
 	    // 		    "' and try running your application manually");
-		
+	    
 	    // }
 	    // else{
 	    // 	console.log("Your openresty application is running on http://localhost:3125/");
