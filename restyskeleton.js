@@ -16,7 +16,7 @@ var make_skeleton = function(){
     
     program.version('1.0.0');        
 
-    program.option('-d, --directory <dirname>','path of the directory  in which openresty skeleton should be created')
+    program.option('-d, --directory <dirname>','name of the directory  in which openresty skeleton should be created')
     .option('-p, --port <port number>',"port on which nginx listens for http connections [default 3125] ")
     .option('-s,--portssl <ssl port number>',"port on which the nginx listens for https connections [default 4125]")
     .option('-n,--ngxp <ngxpath>',"path where nginx is installed [default /usr/local/openresty/nginx/sbin/nginx]");
@@ -25,7 +25,12 @@ var make_skeleton = function(){
 
     var dir = program.directory;
     if(!program.directory){
-	console.log("[ERR] A directory must be specified");
+	console.log("[ERR] A  directory name must be specified");
+	process.exit(1);
+    }
+    if(program.directory.indexOf("/")!==-1){
+	console.log("[ERR] Directory paths are not supported");
+	console.log("[ALERT] For creating a project in a particular directory invoke restyskeleton from that directory");
 	process.exit(1);
     }
     if(program.port) port = program.port;
@@ -70,8 +75,10 @@ var make_skeleton = function(){
 	    	    
 	}
 	catch(ex){
-	    console.log(ex);
 	    console.log("[ERR] Can't create a project in " +dir);
+	    console.log(ex);
+	    shell.rm("-R",'"'+dir+'/"');
+	    process.exit(1);
 	}
     }else{
 	console.log("[ERR] Can't create an openresty skeleton in an existing directory" );
