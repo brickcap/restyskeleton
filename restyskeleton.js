@@ -37,7 +37,7 @@ var make_skeleton = function(){
     if(program.port) port = program.port;
     if(program.portssl )	port_ssl = program.portssl;
     if(program.ngxp) ngx_path = program.ngxp;
-    console.log(!parseInt(port));
+    
     if(!parseInt(port)){
 	console.log("[ERR] Port must be an integer");
 	process.exit(1);
@@ -46,6 +46,7 @@ var make_skeleton = function(){
 	console.log("[ERR] Port must be an integer");
 	process.exit(1);
     }
+    
     if (!fs.existsSync(dir)){
 	try{
 	    fs.mkdirSync(dir);
