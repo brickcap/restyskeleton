@@ -1,5 +1,5 @@
 ##restyskeleton -- a pre Halloween undertaking 
-
+[!badman](https://github.com/brickcap/restyskleton/blob/master/files/images/badman.jpg)
 **WARNING -- proceed at your own risk**
 
 restyskeleton allows you to initialize a minimal openresty application with basic nginx configuration files and a straightforward directory structure that helps you organize your code. The default arrangement of files and directories is just a suggestion, not a standard or a best practice. Nothing that scary despite it's grim name. Only a form that I've found useful in my own projects.
@@ -37,9 +37,9 @@ You can override all of these defaults with command line arguments.
 
 **Unholy incantations**
 
-*-p allows you to specify a port number for http connections
-*-s allows you to specify a port number for https connections
-*-n allows you to specify a path to nginx distribution (in case you've moved it to a different location)
+* -p allows you to specify a port number for http connections
+* -s allows you to specify a port number for https connections
+* -n allows you to specify a path to nginx distribution (in case you've moved it to a different location)
 
 Here's an example that illustrates how to use the options
 
