@@ -37,9 +37,9 @@ You can override all of these defaults with command line arguments.
 
 **Unholy incantations**
 
--p allows you to specify a port number for http connections
--s allows you to specify a port number for https connections
--n allows you to specify a path to nginx distribution (in case you've moved it to a different location)
+*-p allows you to specify a port number for http connections
+*-s allows you to specify a port number for https connections
+*-n allows you to specify a path to nginx distribution (in case you've moved it to a different location)
 
 Here's an example that illustrates how to use the options
 
