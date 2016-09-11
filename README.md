@@ -4,13 +4,13 @@
 
 **WARNING -- proceed at your own peril**
 
-restyskeleton allows you to initialize a minimal openresty application with basic nginx configuration files and a straightforward directory structure that helps you organize your code. The default arrangement of files and directories is just a suggestion, not a standard or a best practice just a form that I've found useful in my own projects. It does nothing scary despite it's grim name. 
+restyskeleton allows you to initialize a minimal openresty application with basic nginx configuration files and a straightforward directory structure that helps you organize your code. The default arrangement of files and directories is just a suggestion, not a standard or a best practice, just a form that I've found useful in my own projects. It does nothing scary despite it's grim name. 
 
 **BEWARE**
 
 restyskeleton is intended to be used as a quick way to create openresty applications, without having to invest too much energy on a project layout upfront, so that you can jump straight into the good stuff. Creating either standalone openresty servers or applications that give new life to your existing servers with the help of programmable proxy magic. 
 
-It allows you to leap over the graves,so to speak. In other words there's no need to roll up your sleeves and embark on a six feet deep, earth digging enterprise, if I may be allowed to illustrate with an analogy. A side mission of the project is to give you ideas on how openresty code can be organized. Feel free to experiment with  different ways of arranging your files and settle on a form that suits you best. 
+It allows you to leap over the graves,so to speak. In other words there's no need for you to roll up your sleeves and embark on a six feet deep, earth digging enterprise, if I may be allowed to illustrate with an analogy. A side mission of the project is to give you ideas on how openresty code can be organized. Feel free to experiment with  different ways of arranging your files and settle on a form that suits you best. 
 
 **ALAS**
 
