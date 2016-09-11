@@ -25,12 +25,12 @@ var make_skeleton = function(){
 
     var dir = program.directory;
     if(!program.directory){
-	console.log("[ERR] A  directory name must be specified");
+	console.log("[HARK!] A  directory name must be specified");
 	process.exit(1);
     }
     if(program.directory.indexOf("/")!==-1){
-	console.log("[ERR] Directory paths are not supported");
-	console.log("[ALERT] For creating a project in a particular directory invoke restyskeleton from that directory");
+	console.log("[HARK!] Directory paths are not supported");
+	console.log("[BEHOLD] For creating a project in a particular directory invoke restyskeleton from that directory");
 	process.exit(1);
     }
     
@@ -39,11 +39,11 @@ var make_skeleton = function(){
     if(program.ngxp) ngx_path = program.ngxp;
     
     if(!parseInt(port)){
-	console.log("[ERR] Port must be an integer");
+	console.log("[HARK!] Port must be an integer");
 	process.exit(1);
     }
     if(!parseInt(port_ssl)){
-	console.log("[ERR] Port must be an integer");
+	console.log("[HARK!] Port must be an integer");
 	process.exit(1);
     }
     
@@ -60,7 +60,7 @@ var make_skeleton = function(){
 	    var spawn =  cp.spawn(ngx_path,['-p./', '-cdev.ngx.conf'],
 				  {stdio:"inherit"});
 	    if(spawn.pid){
-		console.log("[ALERT] Your app is running on http://localhost:"+port);
+		console.log("[BEHOLD] Your app is running on http://localhost:"+port);
 	    }
 	    spawn.on("error",function(data){
 		console.log(data);
@@ -85,13 +85,13 @@ var make_skeleton = function(){
 	    	    
 	}
 	catch(ex){
-	    console.log("[ERR] Can't create a project in " +dir);
+	    console.log("[HARK!] Can't create a project in " +dir);
 	    console.log(ex);
 	    shell.rm("-R",'"'+dir+'/"');
 	    process.exit(1);
 	}
     }else{
-	console.log("[ERR] Can't create an openresty skeleton in an existing directory" );
+	console.log("[HARK!] Can't create an openresty skeleton in an existing directory" );
     }
     
 
