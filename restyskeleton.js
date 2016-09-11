@@ -33,10 +33,18 @@ var make_skeleton = function(){
 	console.log("[ALERT] For creating a project in a particular directory invoke restyskeleton from that directory");
 	process.exit(1);
     }
+    
     if(program.port) port = program.port;
-    if(program.portssl)	port_ssl = program.portssl;
+    if(program.portssl )	port_ssl = program.portssl;
     if(program.ngxp) ngx_path = program.ngxp;
-
+    if(parseInt(port)===NaN) {
+	console.log("[ERR] Port must be an integer");
+	process.exit(1);
+    }
+    if(parseInt(port_ssl)===NaN){
+	console.log("[ERR] Port must be an integer");
+	process.exit(1);
+    }
     if (!fs.existsSync(dir)){
 	try{
 	    fs.mkdirSync(dir);
