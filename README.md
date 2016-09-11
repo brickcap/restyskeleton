@@ -6,7 +6,7 @@ restyskeleton allows you to initialize a minimal openresty application with basi
 
 restyskeleton is intended to be used as a quick way to create a openresty applications, without having to invest too much energy on a project layout upfront, so that you can jump straight into the good stuff. Creating either standalone openresty servers or applications that give new life to your existing servers. 
 
-It allows you to leap over the graves,so to speak. No need to roll up your sleeves and embark on a six feet deep earth digging enterprise, if I may be allowed to illustrate with an analogy. A side mission of the project is to give you ideas on how openresty code can be organized. Feel free to experiment with many different ways of arranging your files and settle on a form that suits you best. 
+It allows you to leap over the graves,so to speak. No need to roll up your sleeves and embark on a six feet deep, earth digging enterprise, if I may be allowed to illustrate with an analogy. A side mission of the project is to give you ideas on how openresty code can be organized. Feel free to experiment with many different ways of arranging your files and settle on a form that suits you best. 
 
 You must have node js installed on the system you wish to run restyskeleton on. Without node js the dead will lie pecaefully in their grave and foil all our evil plans. It's a sacrifice that must be made. Our Lord demands blood.  
 
@@ -18,7 +18,7 @@ restyskleton is simple to use. For a minimal usage restyskeleton requires you to
 restyskleton -d sacrifice
 
 ```
-will create an openresty skeleton in the directory named sacrifie and automatically start the application. By default your application will run on port 3125 for "http" connections and 4125 for "https" connections. If the operation is successful you should see the following output on your terminal:-
+will create an openresty skeleton in the directory named sacrifie and instantaneously bring it to life. By default your application will breathe on port 3125 for "http" connections and 4125 for "https" connections. If the spell is successful you should see the following output on your terminal:-
 
 ```
 [ALERT] Your app is running on http://localhost:3125
