@@ -1,5 +1,5 @@
 ##restyskeleton -- a pre Halloween undertaking 
-[!badman](https://github.com/brickcap/restyskleton/blob/master/files/images/badman.jpg)
+![badman](https://github.com/brickcap/restyskleton/blob/master/files/images/badman.jpg)
 **WARNING -- proceed at your own risk**
 
 restyskeleton allows you to initialize a minimal openresty application with basic nginx configuration files and a straightforward directory structure that helps you organize your code. The default arrangement of files and directories is just a suggestion, not a standard or a best practice. Nothing that scary despite it's grim name. Only a form that I've found useful in my own projects.
@@ -66,4 +66,4 @@ restyskelton creates for you:-
 
 **To my lord, Count Dracula, a licence to bite**
 
-MIT!
+[MIT](https://github.com/brickcap/restyskleton/blob/master/README.md)!
