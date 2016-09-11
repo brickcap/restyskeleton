@@ -14,7 +14,7 @@ var make_skeleton = function(){
     var port_ssl = "4125";
     var ngx_path = "/usr/local/openresty/nginx/sbin/nginx";
     
-    program.version('1.0.0');        
+    program.version('6.6.6');        
 
     program.option('-d, --directory <dirname>','name of the directory  in which openresty skeleton should be created')
     .option('-p, --port <port number>',"port on which nginx listens for http connections [default 3125] ")
