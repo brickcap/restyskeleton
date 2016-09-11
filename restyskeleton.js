@@ -50,7 +50,7 @@ var make_skeleton = function(){
 	    var spawn =  cp.spawn(ngx_path,['-p./', '-cdev.ngx.conf'],
 				  {stdio:"inherit"});
 	    if(spawn.pid){
-		console.log("Your app is running on http://localhost:"+port);
+		console.log("[ALERT] Your app is running on http://localhost:"+port);
 	    }
 	    spawn.on("error",function(data){
 		console.log(data);
