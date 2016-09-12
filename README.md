@@ -1,6 +1,6 @@
 ##restyskeleton -- Spawning barebones openresty applications from the terminal using ancient witchcraft.
 
-![badman](https://github.com/brickcap/restyskleton/blob/master/files/images/badman.jpg)
+![badman](https://c8.staticflickr.com/9/8273/29000969823_856854119c_o.jpg )
 
 **WARNING -- proceed at your own peril**
 
