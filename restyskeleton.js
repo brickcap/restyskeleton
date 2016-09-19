@@ -25,7 +25,7 @@ var make_skeleton = function(){
 
     var dir = program.directory;
     if(!program.directory){
-	console.log("[HARK!] A sub-directory name must be specified");
+	console.log("[HARK!] A project directory must be specified");
 	process.exit(1);
     }
     if(program.directory.indexOf("/")!==-1){
