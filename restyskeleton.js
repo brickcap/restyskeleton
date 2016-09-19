@@ -16,7 +16,7 @@ var make_skeleton = function(){
     
     program.version('6.6.6');        
 
-    program.option('-d, --directory <dirname>','name of the directory  in which openresty skeleton should be created')
+    program.option('-d, --directory <dirname>','name of the sub-directory  in which openresty skeleton should be created')
     .option('-p, --port <port number>',"port on which nginx listens for http connections [default 3125] ")
     .option('-s,--portssl <ssl port number>',"port on which the nginx listens for https connections [default 4125]")
     .option('-n,--ngxp <ngxpath>',"path where nginx is installed [default /usr/local/openresty/nginx/sbin/nginx]");
@@ -25,7 +25,7 @@ var make_skeleton = function(){
 
     var dir = program.directory;
     if(!program.directory){
-	console.log("[HARK!] A  directory name must be specified");
+	console.log("[HARK!] A sub-directory name must be specified");
 	process.exit(1);
     }
     if(program.directory.indexOf("/")!==-1){
