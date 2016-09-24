@@ -19,10 +19,10 @@ var make_skeleton = function(){
     program.version('6.6.6');        
 
     program.option('-d, --directory <dirname>','name of the sub-directory in which openresty skeleton should be created [default restyskeleton]')
-    .option('-p, --port <port number>',"port on which nginx listens for http connections [default 3125] ")
-    .option('-s,--portssl <ssl port number>',"port on which the nginx listens for https connections [default 4125]")
-    .option('-n,--ngxp <ngxpath>',"path where nginx is installed [default /usr/local/openresty/nginx/sbin/nginx]")
-    .option('-w,--watch',"spawns a daemon that automatically restarts openresty on file changes");
+	.option('-p, --port <port number>',"port on which nginx listens for http connections [default 3125] ")
+	.option('-s,--portssl <ssl port number>',"port on which the nginx listens for https connections [default 4125]")
+	.option('-n,--ngxp <ngxpath>',"path where nginx is installed [default /usr/local/openresty/nginx/sbin/nginx]")
+	.option('-w,--watch',"spawns a daemon that automatically restarts openresty on file changes");
     program.parse(process.argv);
 
     var dir = program.directory||
@@ -62,7 +62,7 @@ var make_skeleton = function(){
 	    shell.cd(run_path+"/"+dir);
 	    fs.writeFileSync(run_path+"/"+dir+"/dev.ngx.conf",rendered);
 	    var spawn =  cp.spawn(ngx_path,['-p./', '-cdev.ngx.conf'],
-				      {stdio:"inherit"});
+				  {stdio:"inherit"});
 	    console.log(spawn.pid);
 	    if(spawn.pid){
 		console.log("[BEHOLD!] Your app is running on http://localhost:"+port);
@@ -76,14 +76,17 @@ var make_skeleton = function(){
 			console.log(path);
 			console.log("[HARK!] Restarting openresty");
 			//stop running nginx
-			var kill_n = cp.spawn(ngx_path,['-p./', '-cdev.ngx.conf','-sreload'],
-					      {stdio:"inherit"});
-			// kill_n.on("exit",function(){
-			//     console.log("another instance spawned");
-			//     cp.spawn(ngx_path,['-p./', '-cdev.ngx.conf'],
-			// 	     {stdio:"inherit"});
-			// });
+			var reload_n = cp.spawn(ngx_path,['-p./', '-cdev.ngx.conf','-sreload'],
+						{stdio:"inherit"});
 			
+			reload_n.on("error",function(data){
+			    console.log(data);
+			    process.exit(1);
+			});
+
+			reload_n.on("message",function(data){
+			    console.log(data);
+			});		
 		    });
 
 		}
@@ -92,23 +95,12 @@ var make_skeleton = function(){
 		console.log(data);
 		process.exit(1);
 	    });
-	    spawn.on("exit",function(data){
-		//process.exit(1);
-	    });
-	    
-	    spawn.on("close",function(data){
-		//process.exit(1);
-	    });
-	    
-	    spawn.on("disconnect",function(data){
-		//process.exit(1);
-	    });
 
 	    spawn.on("message",function(data){
 		console.log(data);
 	    });
 	    
-	    	    
+	    
 	}
 	catch(ex){
 	    console.log("[HARK!] Can't create a project in " +dir);
