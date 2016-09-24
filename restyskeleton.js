@@ -9,6 +9,7 @@ var chokidar = require('chokidar');
 var run_path = process.cwd();
 var lib_path = __dirname;
 
+
 var make_skeleton = function(){
 
     var port = "3125";
@@ -21,7 +22,7 @@ var make_skeleton = function(){
     .option('-p, --port <port number>',"port on which nginx listens for http connections [default 3125] ")
     .option('-s,--portssl <ssl port number>',"port on which the nginx listens for https connections [default 4125]")
     .option('-n,--ngxp <ngxpath>',"path where nginx is installed [default /usr/local/openresty/nginx/sbin/nginx]")
-    .option('-w,--watch <watch>',"spawns a daemon that automatically restarts openresty on file changes");
+    .option('-w,--watch',"spawns a daemon that automatically restarts openresty on file changes");
     program.parse(process.argv);
 
     var dir = program.directory||
@@ -31,7 +32,7 @@ var make_skeleton = function(){
 		return "restyskeleton";
 	    }();
     
-    if(program.directory.indexOf("/")!==-1){
+    if(dir.indexOf("/")!==-1){
 	console.log("[HARK!] Directory paths are not supported");
 	console.log("[BEHOLD] For creating a project in a particular directory invoke restyskeleton from that directory");
 	process.exit(1);
@@ -54,7 +55,6 @@ var make_skeleton = function(){
     if (!fs.existsSync(dir)){
 	try{
 	    fs.mkdirSync(dir);
-	    // shell.cd()
 	    var file = fs.readFileSync(lib_path+"/files/dev.ngx.conf",'utf-8');
 	    var rendered = mustache.render(file,{port_ssl:port_ssl,port:port});
 	    shell.cd(lib_path);
@@ -62,20 +62,30 @@ var make_skeleton = function(){
 	    shell.cd(run_path+"/"+dir);
 	    fs.writeFileSync(run_path+"/"+dir+"/dev.ngx.conf",rendered);
 	    var spawn =  cp.spawn(ngx_path,['-p./', '-cdev.ngx.conf'],
-				  {stdio:"inherit"});
+				      {stdio:"inherit"});
+	    console.log(spawn.pid);
 	    if(spawn.pid){
-		console.log("[BEHOLD] Your app is running on http://localhost:"+port);
+		console.log("[BEHOLD!] Your app is running on http://localhost:"+port);
 		if(watch){
-		    console.log("[BEHOLD!] watching for file changes");		    
-		    var watcher = chokidar.watch('file, dir, glob, or array', {
+		    var watcher = chokidar.watch(".",{
 			ignored: /[\/\\]\./,
 			persistent: true
 		    });
+		    console.log(watcher);
 		    watcher.on("change",function(path){
+			console.log(path);
 			console.log("[HARK!] Restarting openresty");
-			cp.exec(ngx_path,['-p./', '-cdev.ngx.conf','-sreload'],
-				{stdio:"inherit"});
+			//stop running nginx
+			var kill_n = cp.spawn(ngx_path,['-p./', '-cdev.ngx.conf','-sreload'],
+					      {stdio:"inherit"});
+			// kill_n.on("exit",function(){
+			//     console.log("another instance spawned");
+			//     cp.spawn(ngx_path,['-p./', '-cdev.ngx.conf'],
+			// 	     {stdio:"inherit"});
+			// });
+			
 		    });
+
 		}
 	    }
 	    spawn.on("error",function(data){
@@ -83,15 +93,15 @@ var make_skeleton = function(){
 		process.exit(1);
 	    });
 	    spawn.on("exit",function(data){
-		process.exit(1);
+		//process.exit(1);
 	    });
 	    
 	    spawn.on("close",function(data){
-		process.exit(1);
+		//process.exit(1);
 	    });
 	    
 	    spawn.on("disconnect",function(data){
-		process.exit(1);
+		//process.exit(1);
 	    });
 
 	    spawn.on("message",function(data){
