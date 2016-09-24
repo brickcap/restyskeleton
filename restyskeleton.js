@@ -63,7 +63,6 @@ var make_skeleton = function(){
 	    fs.writeFileSync(run_path+"/"+dir+"/dev.ngx.conf",rendered);
 	    var spawn =  cp.spawn(ngx_path,['-p./', '-cdev.ngx.conf'],
 				  {stdio:"inherit"});
-	    console.log(spawn.pid);
 	    if(spawn.pid){
 		console.log("[BEHOLD!] Your app is running on http://localhost:"+port);
 		if(watch){
@@ -71,7 +70,6 @@ var make_skeleton = function(){
 			ignored: /[\/\\]\./,
 			persistent: true
 		    });
-		    console.log(watcher);
 		    watcher.on("change",function(path){
 			console.log(path);
 			console.log("[HARK!] Restarting openresty");
