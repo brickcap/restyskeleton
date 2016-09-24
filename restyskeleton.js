@@ -7,7 +7,7 @@ var mustache = require("mustache");
 var cp = require("child_process");
 var run_path = process.cwd();
 var lib_path = __dirname;
-
+var watch = false;
 var make_skeleton = function(){
 
     var port = "3125";
@@ -23,11 +23,13 @@ var make_skeleton = function(){
     .option('-w,--watch <watch>',"starts a daemon that automatically restarts openresty on file changes");
     program.parse(process.argv);
 
-    var dir = program.directory;
-    if(!program.directory){
-	console.log("[HARK!] A project directory must be specified");
-	process.exit(1);
-    }
+    var dir = program.directory||
+	    function(){
+		console.log("[HARK!] No directory name given");
+		console.log("[BEHOLD!] Creating a project in restyskeleton");
+		return "restyskeleton";
+	    }();
+    
     if(program.directory.indexOf("/")!==-1){
 	console.log("[HARK!] Directory paths are not supported");
 	console.log("[BEHOLD] For creating a project in a particular directory invoke restyskeleton from that directory");
@@ -37,6 +39,7 @@ var make_skeleton = function(){
     if(program.port) port = program.port;
     if(program.portssl )	port_ssl = program.portssl;
     if(program.ngxp) ngx_path = program.ngxp;
+    if(program.watch) watch = true;
     
     if(!parseInt(port)){
 	console.log("[HARK!] Port must be an integer");
