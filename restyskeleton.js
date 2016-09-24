@@ -71,7 +71,7 @@ var make_skeleton = function(){
 			persistent: true
 		    });
 		    watcher.on("change",function(path){
-			console.log(path);
+			console.log("[BEHOLD!] File Change:"+path);
 			console.log("[HARK!] Restarting openresty");
 			//stop running nginx
 			var reload_n = cp.spawn(ngx_path,['-p./', '-cdev.ngx.conf','-sreload'],
