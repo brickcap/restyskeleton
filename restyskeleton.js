@@ -8,25 +8,20 @@ var cp = require("child_process");
 var chokidar = require('chokidar');
 var run_path = process.cwd();
 var lib_path = __dirname;
-var watch = false;
-var watcher = chokidar.watch('file, dir, glob, or array', {
-  ignored: /[\/\\]\./,
-  persistent: true
-});
 
 var make_skeleton = function(){
 
     var port = "3125";
     var port_ssl = "4125";
     var ngx_path = "/usr/local/openresty/nginx/sbin/nginx";
-    
+    var watch = false;
     program.version('6.6.6');        
 
-    program.option('-d, --directory <dirname>','name of the sub-directory  in which openresty skeleton should be created')
+    program.option('-d, --directory <dirname>','name of the sub-directory in which openresty skeleton should be created [default restyskeleton]')
     .option('-p, --port <port number>',"port on which nginx listens for http connections [default 3125] ")
     .option('-s,--portssl <ssl port number>',"port on which the nginx listens for https connections [default 4125]")
     .option('-n,--ngxp <ngxpath>',"path where nginx is installed [default /usr/local/openresty/nginx/sbin/nginx]")
-    .option('-w,--watch <watch>',"starts a daemon that automatically restarts openresty on file changes");
+    .option('-w,--watch <watch>',"spawns a daemon that automatically restarts openresty on file changes");
     program.parse(process.argv);
 
     var dir = program.directory||
@@ -71,11 +66,15 @@ var make_skeleton = function(){
 	    if(spawn.pid){
 		console.log("[BEHOLD] Your app is running on http://localhost:"+port);
 		if(watch){
-		    console.log("[BEHOLD!] watching for file changes");
+		    console.log("[BEHOLD!] watching for file changes");		    
+		    var watcher = chokidar.watch('file, dir, glob, or array', {
+			ignored: /[\/\\]\./,
+			persistent: true
+		    });
 		    watcher.on("change",function(path){
 			console.log("[HARK!] Restarting openresty");
 			cp.exec(ngx_path,['-p./', '-cdev.ngx.conf','-sreload'],
-				  {stdio:"inherit"});
+				{stdio:"inherit"});
 		    });
 		}
 	    }
