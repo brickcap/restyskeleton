@@ -5,9 +5,15 @@ var program = require("commander");
 var shell = require("shelljs");
 var mustache = require("mustache");
 var cp = require("child_process");
+var chokidar = require('chokidar');
 var run_path = process.cwd();
 var lib_path = __dirname;
 var watch = false;
+var watcher = chokidar.watch('file, dir, glob, or array', {
+  ignored: /[\/\\]\./,
+  persistent: true
+});
+
 var make_skeleton = function(){
 
     var port = "3125";
@@ -64,6 +70,14 @@ var make_skeleton = function(){
 				  {stdio:"inherit"});
 	    if(spawn.pid){
 		console.log("[BEHOLD] Your app is running on http://localhost:"+port);
+		if(watch){
+		    console.log("[BEHOLD!] watching for file changes");
+		    watcher.on("change",function(path){
+			console.log("[HARK!] Restarting openresty");
+			cp.exec(ngx_path,['-p./', '-cdev.ngx.conf','-sreload'],
+				  {stdio:"inherit"});
+		    });
+		}
 	    }
 	    spawn.on("error",function(data){
 		console.log(data);
