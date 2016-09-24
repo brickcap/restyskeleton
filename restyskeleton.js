@@ -67,7 +67,7 @@ var make_skeleton = function(){
 	    if(spawn.pid){
 		console.log("[BEHOLD!] Your app is running on http://localhost:"+port);
 		if(watch){
-		    var watcher = chokidar.watch(".",{
+		    var watcher = chokidar.watch(["lua","routes","utils"],{
 			ignored: /[\/\\]\./,
 			persistent: true
 		    });
