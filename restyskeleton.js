@@ -19,8 +19,8 @@ var make_skeleton = function(){
     program.option('-d, --directory <dirname>','name of the sub-directory  in which openresty skeleton should be created')
     .option('-p, --port <port number>',"port on which nginx listens for http connections [default 3125] ")
     .option('-s,--portssl <ssl port number>',"port on which the nginx listens for https connections [default 4125]")
-    .option('-n,--ngxp <ngxpath>',"path where nginx is installed [default /usr/local/openresty/nginx/sbin/nginx]");
-
+    .option('-n,--ngxp <ngxpath>',"path where nginx is installed [default /usr/local/openresty/nginx/sbin/nginx]")
+    .option('-w,--watch <watch>',"starts a daemon that automatically restarts openresty on file changes");
     program.parse(process.argv);
 
     var dir = program.directory;
