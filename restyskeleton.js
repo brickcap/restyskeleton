@@ -51,6 +51,7 @@ var make_skeleton = function(){
 		console.log("[HARK!] No directory name given");
 		console.log("[BEHOLD!] Creating a project in restyskeleton");
 		return "restyskeleton";
+		
 	    }();
     
     if(dir.indexOf("/")!==-1){
@@ -58,11 +59,19 @@ var make_skeleton = function(){
 	console.log("[BEHOLD] For creating a project in a particular directory invoke restyskeleton from that directory");
 	process.exit(1);
     }
+
+
     
     if(program.port) port = program.port;
     if(program.portssl )	port_ssl = program.portssl;
     if(program.ngxp) ngx_path = program.ngxp;
     if(program.watch) watch = true;
+
+    if(fs.existsSync(dir) && watch){
+	shell.cd(run_path+"/"+dir);
+	watch_directory(["lua","utils","routes"],ngx_path);
+	return;
+    }
     
     if(!parseInt(port)){
 	console.log("[HARK!] Port must be an integer");
