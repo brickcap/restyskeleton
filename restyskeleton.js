@@ -9,6 +9,27 @@ var chokidar = require('chokidar');
 var run_path = process.cwd();
 var lib_path = __dirname;
 
+var watch_directory = function(dirnames,ngx_path){
+    var watcher = chokidar.watch(dirnames,{
+	ignored: /[\/\\]\./,
+	persistent: true
+    });
+    watcher.on("change",function(path){
+	console.log("[BEHOLD!] File Change:"+path);
+	console.log("[HARK!] Restarting openresty");
+	var reload_n = cp.spawn(ngx_path,['-p./', '-cdev.ngx.conf','-sreload'],
+				{stdio:"inherit"});
+	
+	reload_n.on("error",function(data){
+	    console.log(data);
+	    process.exit(1);
+	});
+
+	reload_n.on("message",function(data){
+	    console.log(data);
+	});		
+    });
+};
 
 var make_skeleton = function(){
 
@@ -55,37 +76,19 @@ var make_skeleton = function(){
     if (!fs.existsSync(dir)){
 	try{
 	    fs.mkdirSync(dir);
+	    var project_path = run_path+"/"+dir;
 	    var file = fs.readFileSync(lib_path+"/files/dev.ngx.conf",'utf-8');
 	    var rendered = mustache.render(file,{port_ssl:port_ssl,port:port});
 	    shell.cd(lib_path);
-	    shell.cp("-R","files/*",run_path+"/"+dir);
-	    shell.cd(run_path+"/"+dir);
-	    fs.writeFileSync(run_path+"/"+dir+"/dev.ngx.conf",rendered);
+	    shell.cp("-R","files/*",project_path);
+	    shell.cd(project_path);
+	    fs.writeFileSync(project_path+"/dev.ngx.conf",rendered);
 	    var spawn =  cp.spawn(ngx_path,['-p./', '-cdev.ngx.conf'],
 				  {stdio:"inherit"});
 	    if(spawn.pid){
 		console.log("[BEHOLD!] Your app is running on http://localhost:"+port);
 		if(watch){
-		    var watcher = chokidar.watch(["lua","routes","utils"],{
-			ignored: /[\/\\]\./,
-			persistent: true
-		    });
-		    watcher.on("change",function(path){
-			console.log("[BEHOLD!] File Change:"+path);
-			console.log("[HARK!] Restarting openresty");
-			//stop running nginx
-			var reload_n = cp.spawn(ngx_path,['-p./', '-cdev.ngx.conf','-sreload'],
-						{stdio:"inherit"});
-			
-			reload_n.on("error",function(data){
-			    console.log(data);
-			    process.exit(1);
-			});
-
-			reload_n.on("message",function(data){
-			    console.log(data);
-			});		
-		    });
+		   watch_directory(["lua","routes","utils"],ngx_path);
 
 		}
 	    }
