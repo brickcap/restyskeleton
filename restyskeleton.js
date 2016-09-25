@@ -73,7 +73,7 @@ var make_skeleton = function(){
     if(fs.existsSync(dir) && watch){
 	console.log("[HARK!] "+dir+" already exists" );
 	shell.cd(run_path+"/"+dir);
-	watch_directory(["lua","utils","routes"],ngx_path);
+	watch_directory(["lua","utils","routes"],ngx_path,true);
 	return;
     }
     
@@ -101,7 +101,7 @@ var make_skeleton = function(){
 	    if(spawn.pid){
 		console.log("[BEHOLD!] Your app is running on http://localhost:"+port);
 		if(watch){
-		   watch_directory(["lua","routes","utils"],ngx_path);
+		   watch_directory(["lua","routes","utils"],ngx_path,false);
 
 		}
 	    }
