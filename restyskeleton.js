@@ -16,7 +16,7 @@ var watch_directory = function(dirnames,ngx_path,create_new){
 	persistent: true
     });
     if(create_new){
-	var n_spawn = cp.spawn(ngx_path,['-p./', '-cdev.ngx.conf']);
+	var n_spawn = cp.spawn(ngx_path,['-p./', '-cdev.ngx.conf'],{stdio:"inherit"});
 	
 	n_spawn.on("error",function(data){
 	    console.log(data);
@@ -70,7 +70,7 @@ var make_skeleton = function(){
     
     if(dir.indexOf("/")!==-1){
 	console.log("[HARK!] Directory paths are not supported");
-	console.log("[BEHOLD] For creating a project in a particular directory invoke restyskeleton from that directory");
+	console.log("[BEHOLD] Please specify the project name without any '/'");
 	process.exit(1);
     }
 
