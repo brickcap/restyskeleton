@@ -15,12 +15,8 @@ var watch_directory = function(dirnames,ngx_path,create_new){
 	ignored: /[\/\\]\./,
 	persistent: true
     });
-    watcher.on("change",function(path){
-	console.log("[BEHOLD!] File Change:"+path);
-	console.log("[HARK!] Restarting openresty");
-	var arg = create_new?['-p./', '-cdev.ngx.conf']:['-p./', '-cdev.ngx.conf','-sreload'];
-	var n_spawn = cp.spawn(ngx_path,arg,
-				{stdio:"inherit"});
+    if(create_new){
+	var n_spawn = cp.spawn(ngx_path,['-p./', '-cdev.ngx.conf']);
 	
 	n_spawn.on("error",function(data){
 	    console.log(data);
@@ -28,6 +24,21 @@ var watch_directory = function(dirnames,ngx_path,create_new){
 	});
 
 	n_spawn.on("message",function(data){
+	    console.log(data);
+	});		
+    }
+    watcher.on("change",function(path){
+	console.log("[BEHOLD!] File Change:"+path);
+	console.log("[HARK!] Restarting openresty");
+	var r_spawn = cp.spawn(ngx_path,['-p./', '-cdev.ngx.conf','-sreload'],
+				{stdio:"inherit"});
+	
+	r_spawn.on("error",function(data){
+	    console.log(data);
+	    process.exit(1);
+	});
+
+	r_spawn.on("message",function(data){
 	    console.log(data);
 	});		
     });
