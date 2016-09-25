@@ -9,7 +9,8 @@ var chokidar = require('chokidar');
 var run_path = process.cwd();
 var lib_path = __dirname;
 
-var watch_directory = function(dirnames,ngx_path){
+var watch_directory = function(dirnames,ngx_path,create_new){
+    console.log("[BEHOLD!] Watching the project directory for changes");
     var watcher = chokidar.watch(dirnames,{
 	ignored: /[\/\\]\./,
 	persistent: true
@@ -17,15 +18,16 @@ var watch_directory = function(dirnames,ngx_path){
     watcher.on("change",function(path){
 	console.log("[BEHOLD!] File Change:"+path);
 	console.log("[HARK!] Restarting openresty");
-	var reload_n = cp.spawn(ngx_path,['-p./', '-cdev.ngx.conf','-sreload'],
+	var arg = create_new?['-p./', '-cdev.ngx.conf']:['-p./', '-cdev.ngx.conf','-sreload'];
+	var n_spawn = cp.spawn(ngx_path,arg,
 				{stdio:"inherit"});
 	
-	reload_n.on("error",function(data){
+	n_spawn.on("error",function(data){
 	    console.log(data);
 	    process.exit(1);
 	});
 
-	reload_n.on("message",function(data){
+	n_spawn.on("message",function(data){
 	    console.log(data);
 	});		
     });
@@ -39,7 +41,8 @@ var make_skeleton = function(){
     var watch = false;
     program.version('6.6.6');        
 
-    program.option('-d, --directory <dirname>','name of the sub-directory in which openresty skeleton should be created [default restyskeleton]')
+    program.option('-d, --directory <dirname>',
+		   'name of the sub-directory in which openresty skeleton should be created [default restyskeleton]')
 	.option('-p, --port <port number>',"port on which nginx listens for http connections [default 3125] ")
 	.option('-s,--portssl <ssl port number>',"port on which the nginx listens for https connections [default 4125]")
 	.option('-n,--ngxp <ngxpath>',"path where nginx is installed [default /usr/local/openresty/nginx/sbin/nginx]")
@@ -68,6 +71,7 @@ var make_skeleton = function(){
     if(program.watch) watch = true;
 
     if(fs.existsSync(dir) && watch){
+	console.log("[HARK!] "+dir+" already exists" );
 	shell.cd(run_path+"/"+dir);
 	watch_directory(["lua","utils","routes"],ngx_path);
 	return;
