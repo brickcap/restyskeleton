@@ -97,7 +97,7 @@ restyskeleton -d test -w
 
 When restyskleton is summoned:-
 
-1. Two nginx master configuration files ,dev.ngx.conf and prod.ngx.conf,are created for development and production use respectively. The configuration directives for the two files are identical except for a couple of changes. Two different files allow you to independently test and simulate development and production environments. The errors in dev.ngx.conf are logged on the console. It's advised that you stay away from these files, as it has been reported that they possess a demonic energy that burn the eyes of the beholder. Remember that curiosity is the lust of mind. 
+1. Two nginx master configuration files ,dev.ngx.conf and prod.ngx.conf,are created for development and production use respectively. The configuration directives for the two files are identical except for a couple of differences. Two different files allow you to independently test and simulate development and production environments. The errors in dev.ngx.conf are logged on the console. It's advised that you stay away from these files, as it has been reported that they possess a demonic energy that burn the eyes of the beholder. Remember that curiosity is the lust of mind. 
 
 2. All the location level directives are placed in the files under the 'routes' directory. The files are organized as:-   *app_routes (for application routes)*, *static_routes(for serving static files)*, *proxy_routes(for configuring all the proxy locations)*. These files are automatically "included" in the master configuration files. Once more, as your well wisher, I'd advice you to keep your distance from these scriptures as their spell have turned many a "curious cats"  into dreadful stone gargoyles. 
 
