@@ -84,7 +84,7 @@ var make_skeleton = function(){
     if(fs.existsSync(dir) && watch){
 	console.log("[HARK!] "+dir+" already exists" );
 	shell.cd(run_path+"/"+dir);
-	watch_directory(["lua","utils","routes"],ngx_path,true);
+	watch_directory(["./dev.ngx.conf","./prod.ngx.conf","lua","utils","routes"],ngx_path,true);
 	return;
     }
     
