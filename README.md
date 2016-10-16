@@ -99,13 +99,13 @@ When restyskleton is summoned:-
 
 1. Two nginx master configuration files ,dev.ngx.conf and prod.ngx.conf,are created for development and production use respectively. The configuration directives for the two files are identical except for a couple of differences. Two different files allow you to independently test and simulate development and production environments. The errors in dev.ngx.conf are logged on the console. It's advised that you stay away from these files, as it has been reported that they possess a demonic energy that burn the eyes of the beholder. Remember that curiosity is the lust of mind. 
 
-2. All the location level directives are placed in the files under the 'routes' directory. The files are organized as:-   *app_routes (for application routes)*, *static_routes(for serving static files)*, *proxy_routes(for configuring all the proxy locations)*. These files are automatically "included" in the master configuration files. Once more, as your well wisher, I'd advice you to keep your distance from these scriptures as their spell have turned many a "curious cats"  into dreadful stone gargoyles. 
+2. All the location level directives are placed in the files under the 'routes' directory. The files are organized as:-   *app_routes (for application routes)*, *static_routes(for serving static files)*, *proxy_routes(for configuring all the proxy locations)*. These files are automatically "included" in the master configurations. Once more, as your well wisher, I'd advice you to keep your distance from these scriptures as their spell have turned many a "curious cats"  into dreadful stone gargoyles. 
 
 3. All the lua code shunned to the 'lua' directory. There's a 'hello.lua' file that is served by a '/' location in the app_routes.conf file. You can check it out to see how it works. Just keep in mind that it's black magic. Don't be surprised if your eyes pop out as soon as you commit your changes.  
 
 4. All the static files are stuffed into the "static" directory. Here you'll find the html pages, css files, scripts, images and all the other rot.
 
-If you find any worms please preserve them in a jar and mail it to akshatjiwan@gmail.com It is imperative that you mark the package as spam so that it may escape cursed gaze of those pesky bots at the sorting facility. I shall do the rest. 
+If you find any worms please preserve them in a jar and mail it to akshatjiwan@gmail.com It is imperative that you mark the package as spam so that it may escape cursed gaze of those pesky bots at the sorting facility. I shall handle the rest. 
 
 **To my lord, Count Dracula, a licence to bite**
 
